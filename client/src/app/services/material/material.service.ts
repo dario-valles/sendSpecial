@@ -19,5 +19,17 @@ export class MaterialService {
         this.materials$.next(this.materials);
       });
   }
-  filterMaterials() {}
+  filterMaterials(term: string) {
+    this.materials.filter(material => {
+      console.log(term);
+
+      material.title.includes(term);
+    });
+
+    this.materials = this.materials.filter(material =>
+      material.title.includes(term)
+    );
+    this.materials$.next(this.materials);
+    console.log(this.materials);
+  }
 }

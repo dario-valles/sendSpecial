@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { MaterialService } from '../services/material/material.service';
 import { StorageService } from '../services/storage/storage.service';
 import { Material } from '../material';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-list-material',
@@ -25,7 +24,7 @@ export class ListMaterialComponent implements OnInit {
   }
 
   search(term) {
-    console.log(term.value);
+    this.MaterialS.filterMaterials(term.value);
   }
 
   ngOnInit() {
