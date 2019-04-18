@@ -1,26 +1,31 @@
 <mat-form-field class="search-form">
-  <input matInput placeholder="Search Picture" type="text" />
+  <input matInput #term placeholder="Search Picture" (input)="search(term)" />
 </mat-form-field>
 <button button="submit" mat-raised-button color="primary">Search</button>
 <br />
 
 <div
-  fxLayout="row"
-  fxLayout.xs="column"
-  fxLayoutWrap
-  fxLayoutGap="0.5%"
-  fxLayoutAlign="center"
+  fxLayout="row wrap"
+  fxLayout.lt-sm="column"
+  fxLayoutGap="32px"
+  fxLayoutAlign="flex-start"
 >
-  <mat-card class="card-picture" *ngFor="let material of materials">
-    <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
-      <span fxFlex="80%">{{ material.title }}</span>
-      <mat-icon fxFlex="10%">mode_edit</mat-icon>
-      <mat-icon fxFlex="10%">delete</mat-icon>
-    </mat-card-title>
-    <img
-      mat-card-image
-      [src]="material.screenshotUrl"
-      (click)="setObjectIdOnStorage(material.id)"
-    />
-  </mat-card>
+  <ng-container *ngFor="let material of materials">
+    <mat-card
+      fxFlex="0 1 calc(33.3% - 32px)"
+      fxFlex.lt-sm="0 1 calc(50% - 32px)"
+      fxFlex.lt-sm="100%"
+    >
+      <mat-card-title fxLayout.gt-xs="row">
+        <span fxFlex="80%">{{ material.title }}</span>
+        <mat-icon fxFlex="10%">mode_edit</mat-icon>
+        <mat-icon fxFlex="10%">delete</mat-icon>
+      </mat-card-title>
+      <img
+        mat-card-image
+        [src]="material.screenshotUrl"
+        (click)="setObjectIdOnStorage(material.id)"
+      />
+    </mat-card>
+  </ng-container>
 </div>

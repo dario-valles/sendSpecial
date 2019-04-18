@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MaterialService } from '../services/material/material.service';
 import { StorageService } from '../services/storage/storage.service';
 import { Material } from '../material';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-list-material',
@@ -21,6 +22,10 @@ export class ListMaterialComponent implements OnInit {
 
   setObjectIdOnStorage(objectId) {
     this.StorageS.setObject(objectId);
+  }
+
+  search(term) {
+    console.log(term.value);
   }
 
   ngOnInit() {

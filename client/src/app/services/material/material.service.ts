@@ -19,4 +19,5 @@ export class MaterialService {
         this.materials$.next(this.materials);
       });
   }
+  filterMaterials() {}
 }
