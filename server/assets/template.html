@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+  </head>
+  <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+  <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+  <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+
+  <body style="margin : 0px; overflow: hidden;">
+    <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false; ">
+      <a-assets>
+        <a-asset-item id="animated-asset" src="{url}"></a-asset-item>
+        <a-mixin
+          id="light"
+          geometry="primitive: sphere; radius: 1.5"
+          material="color: #FFF; shader: flat"
+          light="color: #DDDDFF; distance: 120; intensity: 3; type: point"
+        ></a-mixin>
+      </a-assets>
+
+      <a-marker-camera preset="hiro">
+        <a-entity rotation="0 {orientation} 0" {objectAnimation}>
+          <a-entity gltf-model="#animated-asset" animation-mixer></a-entity>
+        </a-entity>
+        {lightAnimation}
+      </a-marker-camera>
+    </a-scene>
+  </body>
+</html>
