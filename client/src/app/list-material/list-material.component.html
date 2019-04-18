@@ -1,3 +1,26 @@
-<p>
-  list-material works!
-</p>
+<mat-form-field class="search-form">
+  <input matInput placeholder="Search Picture" type="text" />
+</mat-form-field>
+<button button="submit" mat-raised-button color="primary">Search</button>
+<br />
+
+<div
+  fxLayout="row"
+  fxLayout.xs="column"
+  fxLayoutWrap
+  fxLayoutGap="0.5%"
+  fxLayoutAlign="center"
+>
+  <mat-card class="card-picture" *ngFor="let material of materials">
+    <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+      <span fxFlex="80%">{{ material.title }}</span>
+      <mat-icon fxFlex="10%">mode_edit</mat-icon>
+      <mat-icon fxFlex="10%">delete</mat-icon>
+    </mat-card-title>
+    <img
+      mat-card-image
+      [src]="material.screenshotUrl"
+      (click)="setObjectIdOnStorage(material.id)"
+    />
+  </mat-card>
+</div>
