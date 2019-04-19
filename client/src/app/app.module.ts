@@ -19,8 +19,9 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListModuleComponent } from './list-models/list-models.component';
-import { Models3dComponent } from './models3d/models3d.component';
+import { CardComponent } from './card/card.component';
 import { ListMaterialComponent } from './list-material/list-material.component';
+import { GalleryComponent } from './gallery/gallery.component';
 
 @NgModule({
   declarations: [
@@ -28,8 +29,9 @@ import { ListMaterialComponent } from './list-material/list-material.component';
     NavbarComponent,
     DashboardComponent,
     ListModuleComponent,
-    Models3dComponent,
-    ListMaterialComponent
+    CardComponent,
+    ListMaterialComponent,
+    GalleryComponent
   ],
   imports: [
     BrowserModule,
