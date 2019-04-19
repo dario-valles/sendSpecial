@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { modelGroupProvider } from '@angular/forms/src/directives/ng_model_group';
 
 @Component({
   selector: 'app-gallery',
@@ -7,7 +6,9 @@ import { modelGroupProvider } from '@angular/forms/src/directives/ng_model_group
   styleUrls: ['./gallery.component.css']
 })
 export class GalleryComponent implements OnInit {
+  searchTerm: string;
   @Input() models;
+  @Input() cb: () => void;
 
   constructor() {}
 

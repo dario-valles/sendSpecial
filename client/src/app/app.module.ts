@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import {
   MatCardModule,
@@ -22,6 +23,7 @@ import { ListModuleComponent } from './list-models/list-models.component';
 import { CardComponent } from './card/card.component';
 import { ListMaterialComponent } from './list-material/list-material.component';
 import { GalleryComponent } from './gallery/gallery.component';
+import { FilterlistPipe } from './filterlist.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { GalleryComponent } from './gallery/gallery.component';
     ListModuleComponent,
     CardComponent,
     ListMaterialComponent,
-    GalleryComponent
+    GalleryComponent,
+    FilterlistPipe
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ import { GalleryComponent } from './gallery/gallery.component';
     MatFormFieldModule,
     MatInputModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

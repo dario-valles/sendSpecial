@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Model3d } from '../model3d';
+import { Component, OnInit, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-card',
@@ -8,6 +7,8 @@ import { Model3d } from '../model3d';
 })
 export class CardComponent implements OnInit {
   @Input() model;
+  @Input() cb: () => void;
+
   constructor() {}
 
   ngOnInit() {}

@@ -1,6 +1,8 @@
-<mat-card-title fxLayout.gt-xs="row">
+<mat-card-title fxLayout.gt-xs="row" class="title">
   <span fxFlex="80%">{{ model.title }}</span>
   <mat-icon fxFlex="10%">mode_edit</mat-icon>
   <mat-icon fxFlex="10%">delete</mat-icon>
 </mat-card-title>
-<img mat-card-image [src]="model.screenshotUrl" />
+<div (click)="cb(model.id)">
+  <img mat-card-image [src]="model.screenshotUrl" />
+</div>

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MaterialService } from '../services/material/material.service';
-import { StorageService } from '../services/storage/storage.service';
 import { Material } from '../material';
 
 @Component({
@@ -12,15 +12,18 @@ export class ListMaterialComponent implements OnInit {
   materials: Material[];
   constructor(
     private MaterialS: MaterialService,
-    private StorageS: StorageService
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
+
+  currentParams;
+
+  linkCreator(id) {
+    this.router.navigateByUrl('/materials/' + id);
+  }
 
   getMaterials() {
     this.MaterialS.getMaterials();
-  }
-
-  setObjectIdOnStorage(objectId) {
-    this.StorageS.setObject(objectId);
   }
 
   search(term) {
@@ -31,5 +34,8 @@ export class ListMaterialComponent implements OnInit {
     this.getMaterials();
     const result = this.MaterialS.materials$;
     result.subscribe(materials => (this.materials = materials));
+    this.route.queryParams.subscribe(params => (this.currentParams = params));
+
+    console.log(this.currentParams);
   }
 }

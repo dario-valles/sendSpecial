@@ -1,18 +1,18 @@
 <mat-form-field class="search-form">
-  <input matInput #term placeholder="Search Picture" />
+  <input matInput placeholder="Search Picture" [(ngModel)]="searchTerm" />
 </mat-form-field>
 <button button="submit" mat-raised-button color="primary">Search</button>
 <br />
 
 <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="flex-start">
-  <ng-container *ngFor="let model of models">
+  <ng-container *ngFor="let model of (models | filterlist: searchTerm)">
     <mat-card
       fxFlex="0 1 calc(33.3% - 32px)"
       fxFlex.lt-sm="0 1 calc(50% - 32px)"
       fxFlex.lt-sm="100%"
       class="card"
     >
-      <app-card [model]="model"></app-card>
+      <app-card [model]="model" [cb]="cb"></app-card>
     </mat-card>
   </ng-container>
 </div>
