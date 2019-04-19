@@ -9,6 +9,7 @@ import { Model3d } from '../../model3d';
 export class Models3dService {
   models: Model3d[] = [];
   models$ = new BehaviorSubject<Model3d[]>([]);
+  originalModelsArray: Model3d[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -18,6 +19,15 @@ export class Models3dService {
       .subscribe((models: Model3d[]) => {
         this.models = models;
         this.models$.next(this.models);
+        this.originalModelsArray = models;
       });
+  }
+  filterMaterials(term: string) {
+    console.log('in');
+    this.models = [...this.originalModelsArray];
+    this.models = this.models.filter(model =>
+      model.title.toUpperCase().includes(term.toUpperCase())
+    );
+    this.models$.next(this.models);
   }
 }

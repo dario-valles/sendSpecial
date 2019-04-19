@@ -7,7 +7,9 @@ import { Material } from '../../material';
 })
 export class MaterialService {
   materials: Material[] = [];
+  originalMaterialsArray: Material[] = [];
   materials$ = new BehaviorSubject<Material[]>([]);
+  state: { empty: Material[] };
 
   constructor(private http: HttpClient) {}
 
@@ -16,20 +18,15 @@ export class MaterialService {
       .get('http://localhost:3000/materials')
       .subscribe((materials: Material[]) => {
         this.materials = materials;
+        this.originalMaterialsArray = materials;
         this.materials$.next(this.materials);
       });
   }
   filterMaterials(term: string) {
-    this.materials.filter(material => {
-      console.log(term);
-
-      material.title.includes(term);
-    });
-
+    this.materials = [...this.originalMaterialsArray];
     this.materials = this.materials.filter(material =>
-      material.title.includes(term)
+      material.title.toUpperCase().includes(term.toUpperCase())
     );
     this.materials$.next(this.materials);
-    console.log(this.materials);
   }
 }
