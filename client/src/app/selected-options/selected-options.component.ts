@@ -128,19 +128,21 @@ export class SelectedOptionsComponent implements OnInit {
   }
 
   ngOnInit() {
-    const objectId = this.route.snapshot.queryParamMap.get('object-id');
-    const materialId = this.route.snapshot.queryParamMap.get('material-id');
-    if (objectId) {
-      this.getModel(objectId);
-      this.stepper.selectedIndex = 1;
-      this.modelComplete = true;
-    }
-    if (materialId) {
-      this.getMaterial(materialId);
-      this.stepper.selectedIndex = 2;
-      this.materialComplete = true;
-    }
-
-    this.previewDisabled = materialId && objectId ? false : true;
+    this.route.queryParams.subscribe((params: any) => {
+      console.log(params);
+      const objectId = this.route.snapshot.queryParamMap.get('object-id');
+      const materialId = this.route.snapshot.queryParamMap.get('material-id');
+      if (objectId) {
+        this.getModel(objectId);
+        this.stepper.selectedIndex = 1;
+        this.modelComplete = true;
+      }
+      if (materialId) {
+        this.getMaterial(materialId);
+        this.stepper.selectedIndex = 2;
+        this.materialComplete = true;
+      }
+      this.previewDisabled = materialId && objectId ? false : true;
+    });
   }
 }

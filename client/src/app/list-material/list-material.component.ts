@@ -13,7 +13,7 @@ export class ListMaterialComponent implements OnInit {
   constructor(private MaterialS: MaterialService, private router: Router) {}
 
   linkCreator(model) {
-    this.router.navigate(['/my-selection'], {
+    this.router.navigate([], {
       queryParams: { 'material-id': model.id },
       queryParamsHandling: 'merge'
     });

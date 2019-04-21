@@ -10,8 +10,17 @@
     <h1>Heading</h1>
     <p>Lorem ipsum...</p>
     <!-- Use a button to pause/play the video with JavaScript -->
-    <button id="myBtn">Pause</button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="openGenerator()"
+      class="awesome-button"
+    >
+      Create something Awesome
+    </button>
   </div>
-  <app-selected-options></app-selected-options>
+  <ng-container *ngIf="clicked || params">
+    <app-selected-options></app-selected-options>
+  </ng-container>
 </div>
 <router-outlet></router-outlet>

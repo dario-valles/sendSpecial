@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="center center">
-  <mat-card>
+  <mat-card fxFlex="80%">
     <div>
-      <h1>Review your selection</h1>
+      <h1>Select Your Options</h1>
       <mat-horizontal-stepper labelPosition="bottom" #stepper>
         <mat-step [completed]="modelComplete">
           <ng-template matStepLabel>Select Your 3D Model</ng-template>
@@ -13,9 +13,7 @@
             </ng-container>
           </div>
           <ng-template #elseTemplateModel>
-            <button mat-raised-button (click)="selectModel()">
-              Select 3D Model
-            </button>
+            <app-list-models></app-list-models>
           </ng-template>
           <div>
             <button mat-raised-button matStepperNext>Next</button>
@@ -33,9 +31,7 @@
             </ng-container>
           </div>
           <ng-template #elseTemplateMaterial>
-            <button mat-raised-button (click)="selectMaterial()">
-              Select Material
-            </button>
+            <app-list-material></app-list-material>
           </ng-template>
           <div>
             <button mat-raised-button matStepperPrevious>Back</button>

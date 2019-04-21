@@ -13,7 +13,7 @@ export class ListModuleComponent implements OnInit {
   constructor(private ModelS: Models3dService, private router: Router) {}
 
   linkCreator(model) {
-    this.router.navigate(['/materials'], {
+    this.router.navigate([], {
       queryParams: { 'object-id': model.id }
     });
   }

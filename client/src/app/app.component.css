@@ -16,5 +16,12 @@
   min-width: 100%;
   min-height: 100%;
 }
+.awesome-button {
+  position: fixed;
+  top: 40%;
+  left: 40%;
+  font-size: 2em;
+  line-height: 80px;
+}
 
 /* Style the button used to pause/play the video */
