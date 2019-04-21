@@ -59,9 +59,11 @@ export class PreviewDialogComponent {
 export class SelectedOptionsComponent implements OnInit {
   model: Model3d;
   material: Material;
+  audio;
   previewDisabled = true;
   modelComplete = false;
   materialComplete = false;
+  audioComplete = false;
 
   @ViewChild('stepper') stepper: MatStepper;
 

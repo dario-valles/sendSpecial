@@ -1,0 +1,31 @@
+<div fxLayoutAlign="center center">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Let's record your amazing message</mat-card-title>
+      <mat-card-subtitle
+        >This message will be heard when the 3d object is
+        displayed</mat-card-subtitle
+      >
+    </mat-card-header>
+
+    <video #video class="video"></video>
+    <mat-card-actions class="actions">
+      <button
+        mat-raised-button
+        [disabled]="recording"
+        color="warn"
+        (click)="startRecording()"
+      >
+        <mat-icon md-36>mic</mat-icon> Start Recording
+      </button>
+      <button
+        mat-raised-button
+        [disabled]="!recording"
+        color="warn"
+        (click)="stopRecording()"
+      >
+        <mat-icon md-36>stop</mat-icon> Stop Recording
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

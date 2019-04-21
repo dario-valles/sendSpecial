@@ -38,6 +38,23 @@
             <button mat-raised-button matStepperNext>Next</button>
           </div>
         </mat-step>
+        <mat-step [completed]="audioComplete">
+          <ng-template matStepLabel>Record Your Emotional Message</ng-template>
+          <div>
+            <ng-container *ngIf="audio; else elseTemplateAudio">
+              <mat-card fxFlex="100%" class="card">
+                <app-card [model]="material" [cb]="cb"></app-card>
+              </mat-card>
+            </ng-container>
+          </div>
+          <ng-template #elseTemplateAudio>
+            <app-audio></app-audio>
+          </ng-template>
+          <div>
+            <button mat-raised-button matStepperPrevious>Back</button>
+            <button mat-raised-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
         <mat-step>
           <ng-template matStepLabel>Done</ng-template>
           <button

@@ -33,6 +33,8 @@ import {
   SelectedOptionsComponent,
   PreviewDialogComponent
 } from './selected-options/selected-options.component';
+import { AudioComponent } from './audio/audio.component';
+import { VideoComponent } from './video/video.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import {
     GalleryComponent,
     FilterlistPipe,
     SelectedOptionsComponent,
-    PreviewDialogComponent
+    PreviewDialogComponent,
+    AudioComponent,
+    VideoComponent
   ],
   entryComponents: [PreviewDialogComponent],
   imports: [
