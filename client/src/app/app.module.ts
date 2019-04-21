@@ -3,16 +3,21 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { QRCodeModule } from 'angular2-qrcode';
 
 import {
   MatCardModule,
   MatIconModule,
   MatToolbarModule,
+  MatMenuModule,
   MatButtonModule,
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
+  MatStepperModule,
+  MatDialogModule
 } from '@angular/material';
+
 // https://github.com/angular/flex-layout
 
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +29,10 @@ import { CardComponent } from './card/card.component';
 import { ListMaterialComponent } from './list-material/list-material.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { FilterlistPipe } from './filterlist.pipe';
+import {
+  SelectedOptionsComponent,
+  PreviewDialogComponent
+} from './selected-options/selected-options.component';
 
 @NgModule({
   declarations: [
@@ -34,8 +43,11 @@ import { FilterlistPipe } from './filterlist.pipe';
     CardComponent,
     ListMaterialComponent,
     GalleryComponent,
-    FilterlistPipe
+    FilterlistPipe,
+    SelectedOptionsComponent,
+    PreviewDialogComponent
   ],
+  entryComponents: [PreviewDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -44,12 +56,17 @@ import { FilterlistPipe } from './filterlist.pipe';
     MatCardModule,
     MatIconModule,
     MatToolbarModule,
+    MatMenuModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatStepperModule,
     FlexLayoutModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    QRCodeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -19,15 +19,23 @@ export class Models3dService {
       .subscribe((models: Model3d[]) => {
         this.models = models;
         this.models$.next(this.models);
-        this.originalModelsArray = models;
       });
   }
-  filterMaterials(term: string) {
-    console.log('in');
-    this.models = [...this.originalModelsArray];
-    this.models = this.models.filter(model =>
-      model.title.toUpperCase().includes(term.toUpperCase())
-    );
-    this.models$.next(this.models);
+  getModel(id) {
+    return this.http.get('http://localhost:3000/armodels/' + id);
+  }
+  generatePreview(
+    objectId,
+    title = 'Made on sendSpecial',
+    text = 'Once uppon a Time.....'
+  ) {
+    return this.http.post('http://localhost:3000/generate', {
+      id: objectId,
+      title,
+      text,
+      vertical: true,
+      lightAnimation: false,
+      objectAnimation: false
+    });
   }
 }

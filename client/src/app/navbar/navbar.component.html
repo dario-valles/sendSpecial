@@ -1,3 +1,10 @@
-<p>
-  navbar works!
-</p>
+<mat-toolbar color="primary">
+  SendSpecial
+  <button mat-button>Models</button>
+  <button mat-button>Materials</button>
+  <button mat-button [matMenuTriggerFor]="menu">Open</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>item1</button>
+    <button mat-menu-item>item2</button>
+  </mat-menu>
+</mat-toolbar>

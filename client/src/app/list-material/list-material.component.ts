@@ -1,5 +1,5 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MaterialService } from '../services/material/material.service';
 import { Material } from '../material';
 
@@ -10,32 +10,23 @@ import { Material } from '../material';
 })
 export class ListMaterialComponent implements OnInit {
   materials: Material[];
-  constructor(
-    private MaterialS: MaterialService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private MaterialS: MaterialService, private router: Router) {}
 
-  currentParams;
-
-  linkCreator(id) {
-    this.router.navigateByUrl('/materials/' + id);
+  linkCreator(model) {
+    this.router.navigate(['/my-selection'], {
+      queryParams: { 'material-id': model.id },
+      queryParamsHandling: 'merge'
+    });
   }
 
   getMaterials() {
     this.MaterialS.getMaterials();
   }
 
-  search(term) {
-    this.MaterialS.filterMaterials(term.value);
-  }
-
   ngOnInit() {
     this.getMaterials();
     const result = this.MaterialS.materials$;
     result.subscribe(materials => (this.materials = materials));
-    this.route.queryParams.subscribe(params => (this.currentParams = params));
-
-    console.log(this.currentParams);
+    this.linkCreator = this.linkCreator.bind(this);
   }
 }

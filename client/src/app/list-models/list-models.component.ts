@@ -10,19 +10,16 @@ import { Model3d } from '../model3d';
 })
 export class ListModuleComponent implements OnInit {
   models: Model3d[];
-
-  linkCreator(id) {
-    this.router.navigate(['/materials'], { queryParams: { 'object-id': id } });
-  }
-
   constructor(private ModelS: Models3dService, private router: Router) {}
+
+  linkCreator(model) {
+    this.router.navigate(['/materials'], {
+      queryParams: { 'object-id': model.id }
+    });
+  }
 
   getModels() {
     this.ModelS.getModels();
-  }
-
-  search(term) {
-    this.ModelS.filterMaterials(term.value);
   }
 
   ngOnInit() {

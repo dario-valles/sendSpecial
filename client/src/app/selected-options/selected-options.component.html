@@ -1,0 +1,63 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+  <mat-card>
+    <div>
+      <h1>Review your selection</h1>
+      <mat-horizontal-stepper labelPosition="bottom" #stepper>
+        <mat-step [completed]="modelComplete">
+          <ng-template matStepLabel>Select Your 3D Model</ng-template>
+          <div>
+            <ng-container *ngIf="model; else elseTemplateModel">
+              <mat-card fxFlex="100%" class="card">
+                <app-card [model]="model" [cb]="cb"></app-card>
+              </mat-card>
+            </ng-container>
+          </div>
+          <ng-template #elseTemplateModel>
+            <button mat-raised-button (click)="selectModel()">
+              Select 3D Model
+            </button>
+          </ng-template>
+          <div>
+            <button mat-raised-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
+        <mat-step [completed]="materialComplete">
+          <ng-template matStepLabel
+            >Your Selected Material for Printing</ng-template
+          >
+          <div>
+            <ng-container *ngIf="material; else elseTemplateMaterial">
+              <mat-card fxFlex="100%" class="card">
+                <app-card [model]="material" [cb]="cb"></app-card>
+              </mat-card>
+            </ng-container>
+          </div>
+          <ng-template #elseTemplateMaterial>
+            <button mat-raised-button (click)="selectMaterial()">
+              Select Material
+            </button>
+          </ng-template>
+          <div>
+            <button mat-raised-button matStepperPrevious>Back</button>
+            <button mat-raised-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <button
+            mat-raised-button
+            Preview
+            [disabled]="previewDisabled"
+            (click)="generatePreview()"
+          >
+            Preview</button
+          ><span *ngIf="previewDisabled">Please complete steps</span>
+          <div>
+            <button mat-raised-button matStepperPrevious>Back</button>
+            <button mat-raised-button (click)="reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
+  </mat-card>
+</div>
