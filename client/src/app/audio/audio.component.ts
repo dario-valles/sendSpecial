@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { MediaService } from '../media.service';
 let RecordRTC = require('recordrtc');
 
 @Component({
@@ -9,6 +10,7 @@ let RecordRTC = require('recordrtc');
 export class AudioComponent implements AfterViewInit {
   private recordRTC: any;
   private stream: MediaStream;
+  private recordedBlob: any;
 
   recording = false;
   shouldStop = false;
@@ -16,7 +18,7 @@ export class AudioComponent implements AfterViewInit {
 
   @ViewChild('audio') audio;
 
-  constructor() {
+  constructor(private MediaS: MediaService) {
     // Do stuff
   }
 
@@ -31,7 +33,7 @@ export class AudioComponent implements AfterViewInit {
   toggleControls() {
     const audio: HTMLAudioElement = this.audio.nativeElement;
     audio.muted = !audio.muted;
-    audio.controls = !audio.controls;
+    //audio.controls = !audio.controls;
     audio.autoplay = !audio.autoplay;
   }
 
@@ -53,11 +55,12 @@ export class AudioComponent implements AfterViewInit {
   }
 
   processVideo(audioVideoWebMURL) {
-    this.recordRTC = null;
     const audio: HTMLAudioElement = this.audio.nativeElement;
     const recordRTC = this.recordRTC;
     audio.src = audioVideoWebMURL;
+    console.log(recordRTC.getBlob());
     this.toggleControls();
+    this.recordedBlob = recordRTC.getBlob();
     //recordRTC.getDataURL(function(dataURL) {});
   }
 
@@ -83,6 +86,7 @@ export class AudioComponent implements AfterViewInit {
   }
 
   saveRecord() {
-    this.recordRTC.save('video.webm');
+    const result = this.MediaS.saveMedia(this.recordedBlob);
+    console.log(result);
   }
 }

@@ -5,9 +5,9 @@
       <mat-horizontal-stepper labelPosition="bottom" #stepper>
         <mat-step [completed]="modelComplete">
           <ng-template matStepLabel>Select Your 3D Model</ng-template>
-          <div>
+          <div class="actions">
             <ng-container *ngIf="model; else elseTemplateModel">
-              <mat-card fxFlex="100%" class="card">
+              <mat-card fxFlex="50%" class="card">
                 <app-card [model]="model" [cb]="cb"></app-card>
               </mat-card>
             </ng-container>
@@ -15,7 +15,10 @@
           <ng-template #elseTemplateModel>
             <app-list-models></app-list-models>
           </ng-template>
-          <div>
+          <div class="actions">
+            <button *ngIf="model" mat-raised-button (click)="changeModel()">
+              Select New Model
+            </button>
             <button mat-raised-button matStepperNext>Next</button>
           </div>
         </mat-step>
@@ -23,9 +26,9 @@
           <ng-template matStepLabel
             >Your Selected Material for Printing</ng-template
           >
-          <div>
+          <div class="actions">
             <ng-container *ngIf="material; else elseTemplateMaterial">
-              <mat-card fxFlex="100%" class="card">
+              <mat-card fxFlex="50%" class="card">
                 <app-card [model]="material" [cb]="cb"></app-card>
               </mat-card>
             </ng-container>
@@ -33,14 +36,21 @@
           <ng-template #elseTemplateMaterial>
             <app-list-material></app-list-material>
           </ng-template>
-          <div>
+          <div class="actions">
             <button mat-raised-button matStepperPrevious>Back</button>
+            <button
+              *ngIf="material"
+              mat-raised-button
+              (click)="changeMaterial()"
+            >
+              Select New Material
+            </button>
             <button mat-raised-button matStepperNext>Next</button>
           </div>
         </mat-step>
         <mat-step [completed]="audioComplete">
           <ng-template matStepLabel>Record Your Emotional Message</ng-template>
-          <div>
+          <div class="actions">
             <ng-container *ngIf="audio; else elseTemplateAudio">
               <mat-card fxFlex="100%" class="card">
                 <app-card [model]="material" [cb]="cb"></app-card>
@@ -50,22 +60,33 @@
           <ng-template #elseTemplateAudio>
             <app-audio></app-audio>
           </ng-template>
-          <div>
+          <div class="actions">
             <button mat-raised-button matStepperPrevious>Back</button>
             <button mat-raised-button matStepperNext>Next</button>
           </div>
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Done</ng-template>
-          <button
-            mat-raised-button
-            Preview
-            [disabled]="previewDisabled"
-            (click)="generatePreview()"
-          >
-            Preview</button
-          ><span *ngIf="previewDisabled">Please complete steps</span>
-          <div>
+          <ng-container *ngIf="!previewDisabled; else elseTemplate">
+            <h2>
+              Press the Previe Button and point with your mobile camera to it
+            </h2>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <h1>Please complete steps</h1>
+          </ng-template>
+
+          <div class="actions">
+            <button
+              mat-raised-button
+              Preview
+              [disabled]="previewDisabled"
+              (click)="generatePreview()"
+            >
+              Preview</button
+            ><span *ngIf="previewDisabled">Please complete steps</span>
+          </div>
+          <div class="actions">
             <button mat-raised-button matStepperPrevious>Back</button>
             <button mat-raised-button (click)="reset()">Reset</button>
           </div>

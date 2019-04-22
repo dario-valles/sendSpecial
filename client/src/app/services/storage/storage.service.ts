@@ -1,3 +1,4 @@
+// Pending REMOVE
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Storage } from '../../storage';

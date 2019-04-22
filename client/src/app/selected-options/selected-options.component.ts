@@ -129,6 +129,24 @@ export class SelectedOptionsComponent implements OnInit {
     );
   }
 
+  changeMaterial() {
+    this.router.navigate([], {
+      queryParams: {
+        'material-id': null
+      }
+    });
+    this.material = null;
+  }
+
+  changeModel() {
+    this.router.navigate([], {
+      queryParams: {
+        'object-id': null
+      }
+    });
+    this.model = null;
+  }
+
   ngOnInit() {
     this.route.queryParams.subscribe((params: any) => {
       console.log(params);
