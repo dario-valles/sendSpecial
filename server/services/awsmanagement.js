@@ -5,7 +5,8 @@ const { BitlyClient } = require('bitly');
 const qrcode = require('qrcode-terminal');
 
 const baseUrl = process.env.AWS_BASE_DIRECTORY_URL;
-const bucket = process.env.AWS_BUCKET_DIRECTORY;
+const bucketHtmlFiles = process.env.AWS_BUCKET_DIRECTORY;
+const bucketAudioFiles = process.env.AWS_BUCKET_DIRECTORY_AUDIO;
 
 const s3 = new AWS.S3({
   credentials: {
@@ -16,12 +17,28 @@ const s3 = new AWS.S3({
 
 const bitly = new BitlyClient(process.env.BITLY_TOKEN, {});
 
+exports.sendAudioToS3 = async audio => {
+  const fileName = uniqid() + '.webm';
+  console.log(audio);
+  const url = await s3.putObject(
+    {
+      Bucket: bucketAudioFiles,
+      Key: fileName,
+      Body: audio,
+      ContentType: 'audio/webm'
+    },
+    (err, data) => {
+      console.log(err, data);
+    }
+  );
+};
+
 exports.sendToS3 = async template => {
   const fileName = uniqid() + '.html';
 
   const url = await s3.putObject(
     {
-      Bucket: bucket,
+      Bucket: bucketHtmlFiles,
       Key: fileName,
       Body: template,
       ContentType: 'text/html'

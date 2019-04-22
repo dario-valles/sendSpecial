@@ -10,25 +10,42 @@
   <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
   <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
 
+  <!-- import events.js script -->
+  <script src="js/touchme.js""></script>
+
   <body style="margin : 0px; overflow: hidden;">
     <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false; ">
+    <a-scene
+      embedded
+      arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
+    >
       <a-assets>
-        <a-asset-item id="animated-asset" src="{url}"></a-asset-item>
-        <a-mixin
-          id="light"
-          geometry="primitive: sphere; radius: 1.5"
-          material="color: #FFF; shader: flat"
-          light="color: #DDDDFF; distance: 120; intensity: 3; type: point"
-        ></a-mixin>
+        <a-asset-item
+          id="animated-asset"
+          src="{url}"
+        ></a-asset-item>
+        <audio
+          id="sound"
+          src="{audio}"
+          response-type="arraybuffer"
+        ></audio>
       </a-assets>
 
-      <a-marker-camera preset="hiro">
-        <a-entity rotation="0 {orientation} 0" {objectAnimation}>
-          <a-entity gltf-model="#animated-asset" animation-mixer></a-entity>
+      <a-marker
+        markerhandler
+        emitevents="true"
+        cursor="rayOrigin: mouse"
+        id="animated-marker"
+        type="hiro"
+      >  <a-entity rotation="{orientation} 180 0" {objectAnimation}>
+        <a-entity id="animated-model" gltf-model="#animated-asset" scale="1.2" animation-mixer>
         </a-entity>
-        {lightAnimation}
-      </a-marker-camera>
+      </a-entity>
+        <a-entity sound="src: #sound; volume: 3; loop: false"> </a-entity>
+      </a-marker>
+
+      <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
+      <a-entity camera></a-entity>
     </a-scene>
   </body>
 </html>

@@ -15,6 +15,17 @@ exports.getMaterials = async ctx => {
     ctx.status = 500;
   }
 };
+exports.getMaterialById = async ctx => {
+  try {
+    let result = await Materials.findById(ctx.params.id);
+    result.screenshotUrl = process.env.MATERIAL_IMG_URL + result.screenshotUrl;
+    ctx.body = result;
+    ctx.status = 200;
+  } catch (error) {
+    ctx.body = 'Error on server';
+    ctx.status = 500;
+  }
+};
 
 exports.postMaterial = async ctx => {
   try {

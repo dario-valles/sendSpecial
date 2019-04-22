@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+  </head>
+  <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+  <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+  <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+  <style>
+    body {
+      overflow: hidden;
+    }
+
+    .fade {
+      position: relative;
+      width: 100%;
+      min-height: 20vh;
+      max-height: 20vh;
+      top: -25px;
+      background-image: linear-gradient(0deg, transparent, black 75%);
+      z-index: 1;
+    }
+
+    .star-wars {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      height: 800px;
+      color: #feda4a;
+      font-family: 'Pathway Gothic One', sans-serif;
+      font-size: 500%;
+      font-weight: 600;
+      letter-spacing: 6px;
+      line-height: 150%;
+      perspective: 400px;
+      text-align: justify;
+    }
+
+    .crawl {
+      position: relative;
+      top: 9999px;
+      transform-origin: 50% 100%;
+      animation: crawl 60s linear;
+    }
+
+    .crawl > .title {
+      font-size: 90%;
+      text-align: center;
+    }
+
+    .crawl > .title h1 {
+      margin: 0 0 100px;
+      text-transform: uppercase;
+    }
+    p {
+      color: black;
+      text-shadow: -1px -1px 0 #bbb, 1px -1px 0 #bbb, -1px 1px 0 #bbb,
+        1px 1px 0 #bbb;
+    }
+
+    @keyframes crawl {
+      0% {
+        top: 0;
+        transform: rotateX(20deg) translateZ(0);
+      }
+      100% {
+        top: -6000px;
+        transform: rotateX(25deg) translateZ(-2500px);
+      }
+    }
+  </style>
+
+  <body style="margin : 0px; overflow: hidden;">
+    <section class="star-wars">
+      <div class="crawl">
+        <div class="title">
+          <h1>{title}</h1>
+        </div>
+        <p>
+          {text}
+        </p>
+      </div>
+    </section>
+    <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false; ">
+      <a-assets>
+        <a-asset-item id="animated-asset" src="{url}"></a-asset-item>
+        <a-mixin
+          id="light"
+          geometry="primitive: sphere; radius: 1.5"
+          material="color: #FFF; shader: flat"
+          light="color: #DDDDFF; distance: 120; intensity: 3; type: point"
+        ></a-mixin>
+      </a-assets>
+
+      <a-marker-camera preset="hiro">
+        <a-entity rotation="{orientation} 180 0" {objectAnimation}>
+          <a-entity gltf-model="#animated-asset" animation-mixer></a-entity>
+        </a-entity>
+        {lightAnimation}
+        <a-text rotation="{orientation} 180 0" value="Hello, World!"></a-text>
+      </a-marker-camera>
+    </a-scene>
+  </body>
+</html>

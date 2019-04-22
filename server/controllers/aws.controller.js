@@ -8,20 +8,36 @@ const template = fs.readFileSync(
   'utf-8'
 );
 
+exports.sendMediaAWS = async ctx => {
+  //const file = ctx.request.files.file;
+  // console.log(ctx.request.body);
+  //console.log(ctx.request.files);
+  const file = fs.readFileSync(ctx.request.files.file.path);
+  console.log(file);
+
+  const result = await AWSMangement.sendAudioToS3(file);
+
+  ctx.body = { audio_url: result };
+};
+
 exports.sendAWS = async ctx => {
   try {
     const {
       id,
       text,
+      title,
       vertical,
       lightAnimation,
-      objectAnimation
+      objectAnimation,
+      audio
     } = ctx.request.body;
     const model = await ArModels.findById(id);
     const customTemplate = template
       .replace('{url}', model.url, 'gi')
       .replace('{text}', text, 'gi')
-      .replace('{orientation}', vertical ? 90 : 0)
+      .replace('{title}', title, 'gi')
+      .replace('{orientation}', vertical ? 90 : 0, 'gi')
+      .replace('{audio}', audio || 'audio/welcome.mp3')
       .replace(
         '{lightAnimation}',
         lightAnimation
