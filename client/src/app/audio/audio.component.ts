@@ -86,6 +86,7 @@ export class AudioComponent implements AfterViewInit {
   }
 
   saveRecord() {
+    console.log(this.recordedBlob);
     const result = this.MediaS.saveMedia(this.recordedBlob);
     console.log(result);
   }

@@ -12,6 +12,16 @@ exports.getModels = async ctx => {
   }
 };
 
+exports.getModelById = async ctx => {
+  try {
+    ctx.body = await ArModels.findById(ctx.params.id);
+    ctx.status = 200;
+  } catch (error) {
+    ctx.body = 'Error on server';
+    ctx.status = 500;
+  }
+};
+
 exports.postModel = async ctx => {
   try {
     const { title, description, url, screenshotUrl } = ctx.request.body;
