@@ -16,7 +16,7 @@ exports.sendMediaAWS = async ctx => {
   console.log(file);
 
   const result = await AWSMangement.sendAudioToS3(file);
-
+  console.log(result);
   ctx.body = { audio_url: result };
 };
 

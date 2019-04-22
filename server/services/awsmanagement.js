@@ -27,10 +27,9 @@ exports.sendAudioToS3 = async audio => {
       Body: audio,
       ContentType: 'audio/webm'
     },
-    (err, data) => {
-      console.log(err, data);
-    }
+    (err, data) => {}
   );
+  return baseUrl + 'audio/' + fileName;
 };
 
 exports.sendToS3 = async template => {
