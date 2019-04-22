@@ -114,7 +114,7 @@ export class SelectedOptionsComponent implements OnInit {
   }
 
   generatePreview() {
-    this.ModelS.generatePreview(this.model.id).subscribe(
+    this.ModelS.generatePreview(this.model.id, this.audio).subscribe(
       (data: GeneratedModel) => {
         this.dialog.open(PreviewDialogComponent, {
           width: '80%',
@@ -152,6 +152,7 @@ export class SelectedOptionsComponent implements OnInit {
       console.log(params);
       const objectId = this.route.snapshot.queryParamMap.get('object-id');
       const materialId = this.route.snapshot.queryParamMap.get('material-id');
+      const audioUrl = this.route.snapshot.queryParamMap.get('material-id');
       if (objectId) {
         this.getModel(objectId);
         this.stepper.selectedIndex = 1;
@@ -161,6 +162,10 @@ export class SelectedOptionsComponent implements OnInit {
         this.getMaterial(materialId);
         this.stepper.selectedIndex = 2;
         this.materialComplete = true;
+      }
+      if (audioUrl) {
+        this.stepper.selectedIndex = 3;
+        this.audioComplete = true;
       }
       this.previewDisabled = materialId && objectId ? false : true;
     });

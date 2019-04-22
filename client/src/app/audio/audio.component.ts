@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MediaService } from '../media.service';
+import { Router } from '@angular/router';
 let RecordRTC = require('recordrtc');
 
 @Component({
@@ -11,6 +12,7 @@ export class AudioComponent implements AfterViewInit {
   private recordRTC: any;
   private stream: MediaStream;
   private recordedBlob: any;
+  private audioUrl: any;
 
   recording = false;
   shouldStop = false;
@@ -18,7 +20,7 @@ export class AudioComponent implements AfterViewInit {
 
   @ViewChild('audio') audio;
 
-  constructor(private MediaS: MediaService) {
+  constructor(private MediaS: MediaService, private router: Router) {
     // Do stuff
   }
 
@@ -86,8 +88,12 @@ export class AudioComponent implements AfterViewInit {
   }
 
   saveRecord() {
-    console.log(this.recordedBlob);
-    const result = this.MediaS.saveMedia(this.recordedBlob);
-    console.log(result);
+    this.MediaS.saveMedia(this.recordedBlob).subscribe(res => {
+      this.router.navigate([], {
+        queryParams: { 'audio-url': res['audio_url'] },
+        queryParamsHandling: 'merge'
+      });
+      console.log(res);
+    });
   }
 }

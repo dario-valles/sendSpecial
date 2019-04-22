@@ -27,7 +27,9 @@ exports.sendAudioToS3 = async audio => {
       Body: audio,
       ContentType: 'audio/webm'
     },
-    (err, data) => {}
+    (err, data) => {
+      console.log(err, data);
+    }
   );
   return baseUrl + 'audio/' + fileName;
 };
@@ -47,6 +49,7 @@ exports.sendToS3 = async template => {
   if (url) {
     try {
       const result = await bitly.shorten(baseUrl + fileName);
+      console.log(result);
       qrcode.generate(result.url);
       return result.url;
     } catch (e) {

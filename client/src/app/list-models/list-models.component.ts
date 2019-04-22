@@ -14,7 +14,8 @@ export class ListModuleComponent implements OnInit {
 
   linkCreator(model) {
     this.router.navigate([], {
-      queryParams: { 'object-id': model.id }
+      queryParams: { 'object-id': model.id },
+      queryParamsHandling: 'merge'
     });
   }
 

@@ -26,11 +26,13 @@ export class Models3dService {
   }
   generatePreview(
     objectId,
+    audio,
     title = 'Made on sendSpecial',
     text = 'Once uppon a Time.....'
   ) {
     return this.http.post('http://localhost:3000/generate', {
       id: objectId,
+      audio,
       title,
       text,
       vertical: true,

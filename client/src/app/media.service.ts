@@ -15,14 +15,9 @@ export class MediaService {
   // }
 
   saveMedia(file) {
-    const url = window.URL.createObjectURL(file);
     const data = new FormData();
-    console.log(file);
     data.append('file', file);
-    console.log(data);
-    const result = this.http
-      .post('http://localhost:3000/sendmedia', data)
-      .toPromise();
+    const result = this.http.post('http://localhost:3000/sendmedia', data);
     return result;
   }
 }
