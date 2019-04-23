@@ -1,21 +1,28 @@
 <div>
-  <h1 mat-dialog-title>
-    Please scan the qrCode nad point with your mobile to the image
-  </h1>
-</div>
-<div mat-dialog-content>
-  <div fxFlex="calc2Cols">
-    <div>
-      <qr-code [value]="data.qrCode" [size]="250"></qr-code>
-    </div>
-    <div>
-      Or Navigate to:
-    </div>
-    <div>
-      <h2>{{ data.url }}</h2>
-    </div>
+  <button mat-fab color="primary" [mat-dialog-close]="true">
+    <mat-icon>close</mat-icon>
+  </button>
+  <div>
+    <h1 mat-dialog-title>
+      Please scan the qrCode.
+    </h1>
   </div>
-  <div fxFlex="calc4Cols">
-    <img src="{{ data.marker }}" />
+  <div mat-dialog-content class="center large">
+    <div>
+      <div class="center">
+        <qr-code [value]="data.qrCode" [size]="180"></qr-code>
+      </div>
+      <div>
+        Or Navigate to:
+      </div>
+      <div>
+        <a href="{{ data.url }}"
+          ><h2>{{ data.url }}</h2></a
+        >
+      </div>
+    </div>
+    <div>
+      <img src="{{ data.marker }}" />
+    </div>
   </div>
 </div>

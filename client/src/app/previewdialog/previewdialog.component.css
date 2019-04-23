@@ -1,0 +1,12 @@
+.center {
+  margin: auto;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+}
+.large {
+  min-height: 850px;
+}
+h1 {
+  text-align: center;
+}

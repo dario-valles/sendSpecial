@@ -19,7 +19,9 @@
             <button *ngIf="model" mat-raised-button (click)="changeModel()">
               Select New Model
             </button>
-            <button mat-raised-button matStepperNext>Next</button>
+            <button mat-raised-button matStepperNext color="primary">
+              Next
+            </button>
           </div>
         </mat-step>
         <mat-step [completed]="materialComplete">
@@ -45,7 +47,9 @@
             >
               Select New Material
             </button>
-            <button mat-raised-button matStepperNext>Next</button>
+            <button mat-raised-button matStepperNext color="primary">
+              Next
+            </button>
           </div>
         </mat-step>
         <mat-step [completed]="audioComplete">
@@ -55,7 +59,9 @@
           </div>
           <div class="actions">
             <button mat-raised-button matStepperPrevious>Back</button>
-            <button mat-raised-button matStepperNext>Next</button>
+            <button mat-raised-button matStepperNext color="primary">
+              Next
+            </button>
           </div>
         </mat-step>
         <mat-step [completed]="yourDetails">
@@ -66,7 +72,12 @@
           </ng-template>
           <div class="actions">
             <button mat-raised-button matStepperPrevious>Back</button>
-            <button mat-raised-button matStepperNext (click)="checkText()">
+            <button
+              mat-raised-button
+              matStepperNext
+              (click)="checkText()"
+              color="primary"
+            >
               Next
             </button>
           </div>
@@ -79,7 +90,7 @@
             </h2>
           </ng-container>
           <ng-template #elseTemplate>
-            <h1>Please complete steps</h1>
+            <h1>Please complete steps!!</h1>
           </ng-template>
 
           <div class="actions">
@@ -88,9 +99,10 @@
               Preview
               [disabled]="previewDisabled"
               (click)="generatePreview()"
+              color="primary"
             >
-              Preview</button
-            ><span *ngIf="previewDisabled">Please complete steps</span>
+              Preview
+            </button>
           </div>
           <div class="actions">
             <button mat-raised-button matStepperPrevious>Back</button>

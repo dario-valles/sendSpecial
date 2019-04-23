@@ -1,10 +1,5 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import {
-  MatStepper,
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA
-} from '@angular/material';
+import { MatStepper, MatDialog } from '@angular/material';
 import { Models3dService } from '../services/models3d/models3d.service';
 import { MaterialService } from '../services/material/material.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -31,7 +26,7 @@ export class SelectedOptionsComponent implements OnInit {
   yourDetails = false;
 
   @ViewChild('stepper') stepper: MatStepper;
-  @ViewChild('details') child;
+  @ViewChild('details') detailsForm;
 
   constructor(
     private ModelS: Models3dService,
@@ -80,19 +75,17 @@ export class SelectedOptionsComponent implements OnInit {
   }
 
   generatePreview() {
-    console.log(this.child.details);
     this.ModelS.generatePreview(
       this.model.id,
       this.audio,
-      this.child.details
+      this.detailsForm.details
     ).subscribe((data: GeneratedModel) => {
       this.dialog.open(PreviewDialogComponent, {
-        width: '80%',
         data: {
           qrCode: data.generated_url,
           url: data.generated_url,
           marker:
-            'https://s3.eu-west-3.amazonaws.com/sendspecial/Hiro_marker_ARjs.png'
+            'https://s3.eu-west-3.amazonaws.com/sendspecial/Hiro_marker_ARjs.png' // TODO creating a marger generator function
         }
       });
     });
@@ -123,9 +116,9 @@ export class SelectedOptionsComponent implements OnInit {
   }
   checkText() {
     this.yourDetails =
-      this.child.details.name &&
-      this.child.details.sender &&
-      this.child.details.text
+      this.detailsForm.details.name &&
+      this.detailsForm.details.sender &&
+      this.detailsForm.details.text
         ? true
         : false;
     this.previewDisabled =
