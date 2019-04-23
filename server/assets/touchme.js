@@ -1,23 +1,23 @@
 let played = false;
 AFRAME.registerComponent('markerhandler', {
   init: function() {
-    const animatedMarker = document.querySelector('#animated-marker');
+    const body = document.querySelector('#body');
     const aEntity = document.querySelector('#animated-model');
     const soundentity = document.querySelector('[sound]');
 
     // every click, we play or stop sound :)
     animatedMarker.addEventListener('click', function(ev, target) {
       const intersectedElement = ev && ev.detail && ev.detail.intersectedEl;
-      if (aEntity && intersectedElement === aEntity) {
-        played
-          ? soundentity.components.sound.stopSound()
-          : soundentity.components.sound.playSound();
-        played = !played;
-        // aEntity.setAttribute('animation-mixer', 'true');
-        // const scale = aEntity.getAttribute('scale');
-        // Object.keys(scale).forEach(key => (scale[key] = scale[key] + 1));
-        // aEntity.setAttribute('scale', scale);
-      }
+      played
+        ? soundentity.components.sound.stopSound()
+        : soundentity.components.sound.playSound();
+      played = !played;
+      // if (aEntity && intersectedElement === aEntity) {
+      // aEntity.setAttribute('animation-mixer', 'true');
+      // const scale = aEntity.getAttribute('scale');
+      // Object.keys(scale).forEach(key => (scale[key] = scale[key] + 1));
+      // aEntity.setAttribute('scale', scale);
+      // }
     });
   }
 });

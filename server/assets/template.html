@@ -9,26 +9,136 @@
   <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
   <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
   <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css?family=Great+Vibes|Libre+Baskerville"
+    rel="stylesheet"
+  />
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
   <!-- import events.js script -->
-  <script src="js/touchme.js""></script>
+  <script>
+    let played = false;
+    let closed = false;
+
+    AFRAME.registerComponent('markerhandler', {
+      init: function() {
+        const messageBox = document.querySelector('#message-box');
+        const body = document.querySelector('#body');
+        const aEntity = document.querySelector('#animated-model');
+        const soundentity = document.querySelector('[sound]');
+        const message = document.querySelector('#message');
+
+        // every click, we play or stop sound :)
+
+        let time = 10;
+        window.setInterval(test, 1000);
+        function test() {
+          time -= 1;
+          if (time == 0) {
+            message.parentNode.removeChild(message);
+            console.log('run');
+          }
+        }
+        body.addEventListener('mouseenter', function(ev, target) {
+          console.log('clicked');
+          // const intersectedElement = ev && ev.detail && ev.detail.intersectedEl;
+          played
+            ? soundentity.components.sound.stopSound()
+            : soundentity.components.sound.playSound();
+          played = !played;
+
+          // if (!closed) {
+          //   message.parentNode.removeChild(message);
+          //   message.setAttribute('visible', false);
+          //   closed = true;
+          // }
+          // if (aEntity && intersectedElement === aEntity) {
+          // aEntity.setAttribute('animation-mixer', 'true');
+          // const scale = aEntity.getAttribute('scale');
+          // Object.keys(scale).forEach(key => (scale[key] = scale[key] + 1));
+          // aEntity.setAttribute('scale', scale);
+          // }
+        });
+      }
+    });
+  </script>
+  <style>
+    .message {
+      width: 80%;
+      height: 92%;
+      background-color: aliceblue;
+      position: absolute;
+      top: 5%;
+      left: 10%;
+      font-size: 1.4em;
+      -webkit-box-shadow: -7px 3px 32px 0px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: -7px 3px 32px 0px rgba(0, 0, 0, 0.75);
+      box-shadow: -7px 3px 32px 0px rgba(0, 0, 0, 0.75);
+    }
+    h1 {
+      color: #d54d7b;
+      font-family: 'Great Vibes', cursive;
+      font-size: 2em;
+
+      font-weight: normal;
+      margin-bottom: 0px;
+      margin-top: 40px;
+      text-align: center;
+      text-shadow: 0 1px 1px #fff;
+    }
+
+    p {
+      color: #7a7c7f;
+      font-size: 1.1em;
+      font-family: 'Libre Baskerville', serif;
+
+      text-align: center;
+      text-shadow: 0 1px 1px #fff;
+    }
+    p.instrucions {
+      color: #7a7c7f;
+      font-size: 0.6em;
+      font-family: 'Libre Baskerville', serif;
+      text-align: center;
+      text-shadow: 0 1px 1px #fff;
+      padding-top: 20px;
+    }
+    p.byline,
+    span.byline {
+      font-style: italic;
+      color: #b6b6b6;
+      font-size: 0.8em;
+      margin-top: 20px;
+      margin-right: 20px;
+      text-align: right;
+      text-shadow: 0 1px 1px #fff;
+    }
+    p.sendby,
+    span.sendby {
+      color: #d54d7b;
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.4em;
+      font-weight: normal;
+      margin-bottom: 0px;
+      margin-top: 40px;
+      text-align: right;
+      text-shadow: 0 1px 1px #fff;
+    }
+    .container {
+      padding: 25px;
+    }
+  </style>
 
   <body style="margin : 0px; overflow: hidden;">
     <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
     <a-scene
       embedded
       arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
+      cursor="rayOrigin: mouse"
     >
       <a-assets>
-        <a-asset-item
-          id="animated-asset"
-          src="{url}"
-        ></a-asset-item>
-        <audio
-          id="sound"
-          src="{audio}"
-          response-type="arraybuffer"
-        ></audio>
+        <a-asset-item id="animated-asset" src="{url}"></a-asset-item>
+        <audio id="sound" src="{audio}" response-type="arraybuffer"></audio>
       </a-assets>
 
       <a-marker
@@ -37,15 +147,43 @@
         cursor="rayOrigin: mouse"
         id="animated-marker"
         type="hiro"
-      >  <a-entity rotation="{orientation} 180 0" {objectAnimation}>
-        <a-entity id="animated-model" gltf-model="#animated-asset" scale="1.2" animation-mixer>
+      >
+        <a-entity rotation="{orientation} 180 0" {objectAnimation} id="body">
+          <a-entity
+            id="animated-model"
+            gltf-model="#animated-asset"
+            scale="1.2"
+            animation-mixer
+          >
+          </a-entity>
         </a-entity>
-      </a-entity>
         <a-entity sound="src: #sound; volume: 3; loop: false"> </a-entity>
       </a-marker>
-
+      <div id="message-box">
+        <div class="message" id="message">
+          <div class="container">
+            <div>
+              <h1>{name}</h1>
+            </div>
+            <div>
+              <p>{text}</p>
+              <p>
+                <span class="byline">Send with love by:</span
+                ><span class="sendby">{sender}</span>
+              </p>
+              <p class="instrucions">
+                INSTRUCTIONS:<br />
+                Touch the sphere and point your camera to the marker
+              </p>
+            </div>
+            <div>
+              <p class="byline">Created with sendSpecial</p>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
-      <a-entity camera></a-entity>
+      <a-entity camera> </a-entity>
     </a-scene>
   </body>
 </html>
