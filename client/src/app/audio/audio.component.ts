@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  Input
+} from '@angular/core';
 import { MediaService } from '../media.service';
 import { Router } from '@angular/router';
 let RecordRTC = require('recordrtc');
@@ -12,7 +18,7 @@ export class AudioComponent implements AfterViewInit {
   private recordRTC: any;
   private stream: MediaStream;
   private recordedBlob: any;
-  private audioUrl: any;
+  //Input() audioUrl: any;
 
   recording = false;
   shouldStop = false;

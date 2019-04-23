@@ -24,12 +24,13 @@ exports.getModelById = async ctx => {
 
 exports.postModel = async ctx => {
   try {
-    const { title, description, url, screenshotUrl } = ctx.request.body;
+    const { title, description, url, screenshotUrl, scale } = ctx.request.body;
     const result = await ArModels.create({
       title,
       description,
       url,
-      screenshotUrl
+      screenshotUrl,
+      scale
     });
     ctx.body = result;
     ctx.status = 201;

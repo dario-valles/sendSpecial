@@ -48,7 +48,7 @@ exports.sendToS3 = async template => {
   );
   if (url) {
     try {
-      const result = await bitly.shorten(baseUrl + fileName);
+      const result = await bitly.shorten(baseUrl + 'generated/' + fileName);
       console.log(result);
       qrcode.generate(result.url);
       return result.url;

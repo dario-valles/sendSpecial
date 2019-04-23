@@ -24,19 +24,14 @@ export class Models3dService {
   getModel(id) {
     return this.http.get('http://localhost:3000/armodels/' + id);
   }
-  generatePreview(
-    objectId,
-    audio,
-    title = 'Made on sendSpecial',
-    text = 'Once uppon a Time.....'
-  ) {
+  generatePreview(objectId, audio, details) {
+    console.log(audio);
     return this.http.post('http://localhost:3000/generate', {
       id: objectId,
       audio,
-      title,
-      text,
+      details,
       vertical: true,
-      lightAnimation: false,
+      lightAnimation: true,
       objectAnimation: false
     });
   }

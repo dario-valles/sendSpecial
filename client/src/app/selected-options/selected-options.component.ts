@@ -59,13 +59,15 @@ export class PreviewDialogComponent {
 export class SelectedOptionsComponent implements OnInit {
   model: Model3d;
   material: Material;
-  audio;
+  audio: string;
   previewDisabled = true;
   modelComplete = false;
   materialComplete = false;
   audioComplete = false;
+  yourDetails = false;
 
   @ViewChild('stepper') stepper: MatStepper;
+  @ViewChild('details') child;
 
   constructor(
     private ModelS: Models3dService,
@@ -114,37 +116,58 @@ export class SelectedOptionsComponent implements OnInit {
   }
 
   generatePreview() {
-    this.ModelS.generatePreview(this.model.id, this.audio).subscribe(
-      (data: GeneratedModel) => {
-        this.dialog.open(PreviewDialogComponent, {
-          width: '80%',
-          data: {
-            qrCode: data.generated_url,
-            url: data.generated_url,
-            marker:
-              'https://s3.eu-west-3.amazonaws.com/sendspecial/Hiro_marker_ARjs.png'
-          }
-        });
-      }
-    );
+    console.log(this.child.details);
+    this.ModelS.generatePreview(
+      this.model.id,
+      this.audio,
+      this.child.details
+    ).subscribe((data: GeneratedModel) => {
+      this.dialog.open(PreviewDialogComponent, {
+        width: '80%',
+        data: {
+          qrCode: data.generated_url,
+          url: data.generated_url,
+          marker:
+            'https://s3.eu-west-3.amazonaws.com/sendspecial/Hiro_marker_ARjs.png'
+        }
+      });
+    });
   }
 
   changeMaterial() {
     this.router.navigate([], {
       queryParams: {
+        relativeTo: this.route,
         'material-id': null
-      }
+      },
+      queryParamsHandling: 'merge'
     });
     this.material = null;
+    this.materialComplete = false;
   }
 
   changeModel() {
     this.router.navigate([], {
+      relativeTo: this.route,
       queryParams: {
         'object-id': null
-      }
+      },
+      queryParamsHandling: 'merge'
     });
     this.model = null;
+    this.modelComplete = false;
+  }
+  checkText() {
+    this.yourDetails =
+      this.child.details.name &&
+      this.child.details.sender &&
+      this.child.details.text
+        ? true
+        : false;
+    this.previewDisabled =
+      this.modelComplete && this.materialComplete && this.yourDetails
+        ? false
+        : true;
   }
 
   ngOnInit() {
@@ -152,7 +175,8 @@ export class SelectedOptionsComponent implements OnInit {
       console.log(params);
       const objectId = this.route.snapshot.queryParamMap.get('object-id');
       const materialId = this.route.snapshot.queryParamMap.get('material-id');
-      const audioUrl = this.route.snapshot.queryParamMap.get('material-id');
+      this.audio = this.route.snapshot.queryParamMap.get('audio-url');
+
       if (objectId) {
         this.getModel(objectId);
         this.stepper.selectedIndex = 1;
@@ -163,11 +187,13 @@ export class SelectedOptionsComponent implements OnInit {
         this.stepper.selectedIndex = 2;
         this.materialComplete = true;
       }
-      if (audioUrl) {
+      if (this.audio) {
+        // TODO: Grab generated audio if it has been recorded
         this.stepper.selectedIndex = 3;
         this.audioComplete = true;
       }
-      this.previewDisabled = materialId && objectId ? false : true;
+      this.previewDisabled =
+        materialId && objectId && this.yourDetails ? false : true;
     });
   }
 }

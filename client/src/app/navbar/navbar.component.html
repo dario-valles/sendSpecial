@@ -1,10 +1,24 @@
 <mat-toolbar color="primary">
-  SendSpecial
-  <button mat-button>Models</button>
-  <button mat-button>Materials</button>
-  <button mat-button [matMenuTriggerFor]="menu">Open</button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item>item1</button>
-    <button mat-menu-item>item2</button>
-  </mat-menu>
+  <div fxFlex fxLayout="row" fxLayoutAlign="space-around">
+    <div>
+      SendSpecial
+    </div>
+    <div>
+      <button mat-button>Models</button>
+    </div>
+    <div>
+      <button mat-button>Materials</button>
+    </div>
+    <div>
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>person</mat-icon>Account
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>Markers</button>
+        <button mat-menu-item>Audios</button>
+        <button mat-menu-item>3d Objects</button>
+        <button mat-menu-item>Generated</button>
+      </mat-menu>
+    </div>
+  </div>
 </mat-toolbar>

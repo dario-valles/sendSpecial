@@ -1,4 +1,4 @@
-<div fxLayout="row" fxLayoutAlign="center center">
+<div fxLayoutAlign="center center" class="options">
   <mat-card fxFlex="80%">
     <div>
       <h1>Select Your Options</h1>
@@ -51,18 +51,24 @@
         <mat-step [completed]="audioComplete">
           <ng-template matStepLabel>Record Your Emotional Message</ng-template>
           <div class="actions">
-            <ng-container *ngIf="audio; else elseTemplateAudio">
-              <mat-card fxFlex="100%" class="card">
-                <app-card [model]="material" [cb]="cb"></app-card>
-              </mat-card>
-            </ng-container>
-          </div>
-          <ng-template #elseTemplateAudio>
             <app-audio></app-audio>
-          </ng-template>
+          </div>
           <div class="actions">
             <button mat-raised-button matStepperPrevious>Back</button>
             <button mat-raised-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
+        <mat-step [completed]="yourDetails">
+          <ng-template matStepLabel>Some info</ng-template>
+          <app-yourdetails #details></app-yourdetails>
+          <ng-template #TemplateYourDetails>
+            <app-list-material></app-list-material>
+          </ng-template>
+          <div class="actions">
+            <button mat-raised-button matStepperPrevious>Back</button>
+            <button mat-raised-button matStepperNext (click)="checkText()">
+              Next
+            </button>
           </div>
         </mat-step>
         <mat-step>

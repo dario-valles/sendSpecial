@@ -18,6 +18,10 @@ const modelsSchema = db.Schema({
     type: String,
     required: true
   },
+  scale: {
+    type: Number,
+    default: 1
+  },
   time: {
     type: Date,
     default: Date.now

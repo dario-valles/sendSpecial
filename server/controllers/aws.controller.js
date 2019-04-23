@@ -24,18 +24,18 @@ exports.sendAWS = async ctx => {
   try {
     const {
       id,
-      text,
-      title,
+      audio,
+      details,
       vertical,
       lightAnimation,
-      objectAnimation,
-      audio
+      objectAnimation
     } = ctx.request.body;
     const model = await ArModels.findById(id);
     const customTemplate = template
       .replace('{url}', model.url, 'gi')
-      .replace('{text}', text, 'gi')
-      .replace('{title}', title, 'gi')
+      .replace('{text}', details.text, 'gi')
+      .replace('{name}', details.name, 'gi')
+      .replace('{sender}', details.sender, 'gi')
       .replace('{orientation}', vertical ? 90 : 0, 'gi')
       .replace('{audio}', audio || 'audio/welcome.mp3')
       .replace(
@@ -48,7 +48,7 @@ exports.sendAWS = async ctx => {
       .replace(
         '{objectAnimation}',
         objectAnimation
-          ? `animation="property: rotation; to: 360 360 0; loop: true; dur: 10000"`
+          ? `animation="property: rotation; to: 0 360 0; loop: true; dur: 10000"`
           : ''
       );
 

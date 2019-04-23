@@ -19,9 +19,12 @@
 .awesome-button {
   position: fixed;
   top: 40%;
-  left: 40%;
-  font-size: 2em;
+  left: 35%;
+  font-size: 2rem;
   line-height: 80px;
+}
+h1 {
+  text-align: center;
 }
 
 /* Style the button used to pause/play the video */

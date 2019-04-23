@@ -1,0 +1,27 @@
+<mat-card>
+  <div class="example-container" fxLayout="column">
+    <h2>Please fill the form</h2>
+    <mat-form-field>
+      <input matInput placeholder="Your Name" [(ngModel)]="details.sender" />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Who are you sendind to"
+        [(ngModel)]="details.name"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea
+        matInput
+        maxlength="100"
+        placeholder="Write some nice text"
+        matTextareaAutosize
+        matAutosizeMinRows="1"
+        matAutosizeMaxRows="5"
+        [(ngModel)]="details.text"
+      ></textarea>
+    </mat-form-field>
+  </div>
+</mat-card>
