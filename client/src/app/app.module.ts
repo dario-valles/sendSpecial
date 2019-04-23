@@ -29,13 +29,11 @@ import { CardComponent } from './card/card.component';
 import { ListMaterialComponent } from './list-material/list-material.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { FilterlistPipe } from './filterlist.pipe';
-import {
-  SelectedOptionsComponent,
-  PreviewDialogComponent
-} from './selected-options/selected-options.component';
+import { SelectedOptionsComponent } from './selected-options/selected-options.component';
 import { AudioComponent } from './audio/audio.component';
 import { VideoComponent } from './video/video.component';
 import { YourdetailsComponent } from './yourdetails/yourdetails.component';
+import { PreviewDialogComponent } from './previewdialog/previewdialog.component';
 
 @NgModule({
   declarations: [
@@ -48,10 +46,10 @@ import { YourdetailsComponent } from './yourdetails/yourdetails.component';
     GalleryComponent,
     FilterlistPipe,
     SelectedOptionsComponent,
-    PreviewDialogComponent,
     AudioComponent,
     VideoComponent,
-    YourdetailsComponent
+    YourdetailsComponent,
+    PreviewDialogComponent
   ],
   entryComponents: [PreviewDialogComponent],
   imports: [

@@ -10,47 +10,11 @@ import { MaterialService } from '../services/material/material.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Material } from '../material';
 import { Model3d } from '../model3d';
-
-export interface DialogData {
-  url: string;
-  marker: string;
-  qrCode: string;
-}
+import { PreviewDialogComponent } from '../previewdialog/previewdialog.component';
 
 export interface GeneratedModel {
   generated_url: string;
 }
-
-@Component({
-  selector: 'app-dialog-preview',
-  template: `
-    <div>
-      <h1 mat-dialog-title>
-        Please scan the qrCode nad point with your mobile to the image
-      </h1>
-    </div>
-    <div mat-dialog-content>
-      <div fxFlex="calc2Cols">
-        <div>
-          <qr-code [value]="data.qrCode" [size]="250"></qr-code>
-        </div>
-        <div>
-          Or Navigate to:
-        </div>
-        <div>
-          <h2>{{ data.url }}</h2>
-        </div>
-      </div>
-      <div fxFlex="calc4Cols">
-        <img src="{{ data.marker }}" />
-      </div>
-    </div>
-  `
-})
-export class PreviewDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-}
-
 @Component({
   selector: 'app-selected-options',
   templateUrl: './selected-options.component.html',
