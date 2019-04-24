@@ -15,16 +15,24 @@
   color: #f1f1f1;
   min-width: 100%;
   min-height: 100%;
+  margin: auto;
 }
 .awesome-button {
-  position: fixed;
-  top: 40%;
-  left: 35%;
-  font-size: 2rem;
+  position: absolute;
+  font-size: 2vh;
   line-height: 80px;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
 }
-h1 {
+
+h1,
+h3 {
   text-align: center;
+}
+
+h3 {
+  color: #d8d8d8;
 }
 
 /* Style the button used to pause/play the video */
