@@ -16,6 +16,9 @@
   "devDependencies": {
     "mocha": "^6.1.4"
   },
+  "engines": {
+    "node": "10.15.0"
+  },
   "dependencies": {
     "aws-sdk": "^2.438.0",
     "bitly": "^6.0.8",
