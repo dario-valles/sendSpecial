@@ -16,49 +16,43 @@ exports.sendMediaAWS = async ctx => {
   console.log(file);
 
   const result = await AWSMangement.sendAudioToS3(file);
-  console.log(result);
   ctx.body = { audio_url: result };
 };
 
 exports.sendAWS = async ctx => {
-  try {
-    const {
-      id,
-      audio,
-      details,
-      vertical,
-      lightAnimation,
-      objectAnimation
-    } = ctx.request.body;
-    const model = await ArModels.findById(id);
-    const customTemplate = template
-      .replace('{url}', model.url, 'gi')
-      .replace('{text}', details.text, 'gi')
-      .replace('{name}', details.name, 'gi')
-      .replace('{sender}', details.sender, 'gi')
-      .replace('{orientation}', vertical ? 90 : 0, 'gi')
-      .replace('{audio}', audio || 'audio/welcome.mp3')
-      .replace(
-        '{lightAnimation}',
-        lightAnimation
-          ? `<a-entity animation="property: rotation; to: 0 0 360; dur: 4000; easing: linear; loop: true">
+  const {
+    id,
+    audio,
+    details,
+    vertical,
+    lightAnimation,
+    objectAnimation
+  } = ctx.request.body;
+  const model = await ArModels.findById(id);
+  const customTemplate = template
+    .replace('{url}', model.url, 'gi')
+    .replace('{text}', details.text, 'gi')
+    .replace('{name}', details.name, 'gi')
+    .replace('{sender}', details.sender, 'gi')
+    .replace('{orientation}', vertical ? 90 : 0, 'gi')
+    .replace('{audio}', audio || 'audio/welcome.mp3')
+    .replace(
+      '{lightAnimation}',
+      lightAnimation
+        ? `<a-entity animation="property: rotation; to: 0 0 360; dur: 4000; easing: linear; loop: true">
       <a-entity mixin="light" position="30 0 0"></a-entity></a-entity>`
-          : ''
-      )
-      .replace(
-        '{objectAnimation}',
-        objectAnimation
-          ? `animation="property: rotation; to: 0 360 0; loop: true; dur: 10000"`
-          : ''
-      );
+        : ''
+    )
+    .replace(
+      '{objectAnimation}',
+      objectAnimation
+        ? `animation="property: rotation; to: 0 360 0; loop: true; dur: 10000"`
+        : ''
+    );
 
-    const generatedURL = await AWSMangement.sendToS3(customTemplate);
-    ctx.body = {
-      generated_url: generatedURL,
-      generated_html: customTemplate
-    };
-  } catch (error) {
-    ctx.body = 'Error on server';
-    ctx.status = 500;
-  }
+  const generatedURL = await AWSMangement.sendToS3(customTemplate);
+  ctx.body = {
+    generated_url: generatedURL,
+    generated_html: customTemplate
+  };
 };
