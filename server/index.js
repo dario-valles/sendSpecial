@@ -1,5 +1,8 @@
 'use strict';
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 const compress = require('koa-compress');
 const koa = require('koa');
 const cors = require('koa2-cors');
@@ -7,8 +10,6 @@ const parser = require('koa-body');
 const app = (module.exports = new koa());
 const router = require('./routes.js');
 const errorHandler = require('./middlewares/errror-handler');
-
-require('dotenv').config();
 
 const port = process.env.PORT || 3000;
 
