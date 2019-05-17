@@ -1,8 +1,10 @@
 'use strict';
 const AWS = require('aws-sdk');
 const uniqid = require('uniqid');
-const { BitlyClient } = require('bitly');
-const qrcode = require('qrcode-terminal');
+const {BitlyClient} = require('bitly');
+if (process.env.NODE_ENV !== 'production') {
+  const qrcode = require('qrcode-terminal');
+}
 
 const baseUrl = process.env.AWS_BASE_DIRECTORY_URL;
 const bucketHtmlFiles = process.env.AWS_BUCKET_DIRECTORY;
@@ -44,13 +46,14 @@ exports.sendToS3 = async template => {
       Body: template,
       ContentType: 'text/html'
     },
-    function(resp) {}
+    function (resp) {}
   );
   if (url) {
     try {
       const result = await bitly.shorten(baseUrl + 'generated/' + fileName);
-      console.log(result);
-      qrcode.generate(result.url);
+      if (process.env.NODE_ENV !== 'production') {
+        qrcode.generate(result.url);
+      }
       return result.url;
     } catch (e) {
       throw e;
