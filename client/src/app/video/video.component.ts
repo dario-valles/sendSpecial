@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-let RecordRTC = require('recordrtc');
+const RecordRTC = require('recordrtc');
 
 @Component({
   selector: 'app-video',
@@ -20,21 +20,21 @@ export class VideoComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     // set the initial state of the video
-    let video: HTMLVideoElement = this.video.nativeElement;
+    const video: HTMLVideoElement = this.video.nativeElement;
     video.muted = false;
     video.controls = true;
     video.autoplay = false;
   }
 
   toggleControls() {
-    let video: HTMLVideoElement = this.video.nativeElement;
+    const video: HTMLVideoElement = this.video.nativeElement;
     video.muted = !video.muted;
     video.controls = !video.controls;
     video.autoplay = !video.autoplay;
   }
 
   successCallback(stream: MediaStream) {
-    var options = {
+    const options = {
       mimeType: 'video/webm', // or video/webm\;codecs=h264 or video/webm\;codecs=vp9
       audioBitsPerSecond: 128000,
       videoBitsPerSecond: 128000,
@@ -43,7 +43,7 @@ export class VideoComponent implements AfterViewInit {
     this.stream = stream;
     this.recordRTC = RecordRTC(stream, options);
     this.recordRTC.startRecording();
-    let video: HTMLVideoElement = this.video.nativeElement;
+    const video: HTMLVideoElement = this.video.nativeElement;
     // video.src = window.URL.createObjectURL(stream);
     this.toggleControls();
   }
@@ -53,17 +53,17 @@ export class VideoComponent implements AfterViewInit {
   }
 
   processVideo(audioVideoWebMURL) {
-    let video: HTMLVideoElement = this.video.nativeElement;
-    let recordRTC = this.recordRTC;
+    const video: HTMLVideoElement = this.video.nativeElement;
+    const recordRTC = this.recordRTC;
     video.src = audioVideoWebMURL;
     this.toggleControls();
-    var recordedBlob = recordRTC.getBlob();
+    const recordedBlob = recordRTC.getBlob();
     recordRTC.getDataURL(function(dataURL) {});
   }
 
   startRecording() {
     this.recording = true;
-    let mediaConstraints = {
+    const mediaConstraints = {
       video: true,
       audio: true
     };
@@ -74,9 +74,9 @@ export class VideoComponent implements AfterViewInit {
 
   stopRecording() {
     this.recording = false;
-    let recordRTC = this.recordRTC;
+    const recordRTC = this.recordRTC;
     recordRTC.stopRecording(this.processVideo.bind(this));
-    let stream = this.stream;
+    const stream = this.stream;
     stream.getAudioTracks().forEach(track => track.stop());
     stream.getVideoTracks().forEach(track => track.stop());
   }

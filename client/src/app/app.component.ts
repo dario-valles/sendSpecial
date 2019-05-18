@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -6,12 +6,11 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   clicked = false;
   params;
 
   openGenerator() {
-    console.log(this.clicked);
     this.clicked = true;
   }
   constructor(private route: ActivatedRoute) {}

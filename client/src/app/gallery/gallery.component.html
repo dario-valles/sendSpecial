@@ -1,8 +1,9 @@
-<mat-form-field class="search-form">
-  <input matInput placeholder="Search Picture" [(ngModel)]="searchTerm" />
-</mat-form-field>
-<br />
-
+<div class="center">
+  <mat-form-field class="search-form">
+    <input matInput placeholder="Search" [(ngModel)]="searchTerm" />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
 <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="flex-start">
   <ng-container *ngFor="let model of (models | filterlist: searchTerm)">
     <mat-card
