@@ -66,7 +66,6 @@ export class AudioComponent implements AfterViewInit {
     const audio: HTMLAudioElement = this.audio.nativeElement;
     const recordRTC = this.recordRTC;
     audio.src = audioVideoWebMURL;
-    console.log(recordRTC.getBlob());
     this.toggleControls();
     this.recordedBlob = recordRTC.getBlob();
     //recordRTC.getDataURL(function(dataURL) {});
@@ -99,7 +98,6 @@ export class AudioComponent implements AfterViewInit {
         queryParams: { 'audio-url': res['audio_url'] },
         queryParamsHandling: 'merge'
       });
-      console.log(res);
     });
   }
 }

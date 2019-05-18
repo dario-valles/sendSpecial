@@ -26,7 +26,6 @@ export class Models3dService {
     return this.http.get(environment.SERVER + '/armodels/' + id);
   }
   generatePreview(objectId, audio, details) {
-    console.log(audio);
     return this.http.post(environment.SERVER + '/generate', {
       id: objectId,
       audio,
