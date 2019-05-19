@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.DB_URI, {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true
 });
 

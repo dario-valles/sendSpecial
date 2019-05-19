@@ -18,7 +18,6 @@
   margin: auto;
 }
 .awesome-button {
-  position: absolute;
   font-size: 2vh;
   line-height: 80px;
   left: 50%;
@@ -33,6 +32,15 @@ h3 {
 
 h3 {
   color: #d8d8d8;
+}
+.description {
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+.text-description {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px;
 }
 
 /* Style the button used to pause/play the video */

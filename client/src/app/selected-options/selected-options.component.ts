@@ -34,7 +34,7 @@ export class SelectedOptionsComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   getModel(id) {
     this.ModelS.getModel(id).subscribe((mode: Model3d) => {
@@ -48,7 +48,7 @@ export class SelectedOptionsComponent implements OnInit {
     );
   }
 
-  cb() {}
+  cb() { }
 
   selectModel() {
     this.router.navigate(['/models'], {
@@ -117,8 +117,8 @@ export class SelectedOptionsComponent implements OnInit {
   checkText() {
     this.yourDetails =
       this.detailsForm.details.name &&
-      this.detailsForm.details.sender &&
-      this.detailsForm.details.text
+        this.detailsForm.details.sender &&
+        this.detailsForm.details.text
         ? true
         : false;
     this.previewDisabled =
@@ -129,7 +129,6 @@ export class SelectedOptionsComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe((params: any) => {
-      console.log(params);
       const objectId = this.route.snapshot.queryParamMap.get('object-id');
       const materialId = this.route.snapshot.queryParamMap.get('material-id');
       this.audio = this.route.snapshot.queryParamMap.get('audio-url');

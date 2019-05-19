@@ -13,12 +13,11 @@ export class AppComponent implements OnInit {
   openGenerator() {
     this.clicked = true;
   }
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.params = params['object-id'] || params['material-id'];
-      console.log(this.params);
     });
   }
 }

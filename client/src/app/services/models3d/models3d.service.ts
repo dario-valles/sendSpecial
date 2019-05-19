@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Model3d } from '../../model3d';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,22 +12,21 @@ export class Models3dService {
   models$ = new BehaviorSubject<Model3d[]>([]);
   originalModelsArray: Model3d[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getModels() {
     this.http
-      .get('http://localhost:3000/armodels')
+      .get(environment.SERVER + '/armodels')
       .subscribe((models: Model3d[]) => {
         this.models = models;
         this.models$.next(this.models);
       });
   }
   getModel(id) {
-    return this.http.get('http://localhost:3000/armodels/' + id);
+    return this.http.get(environment.SERVER + '/armodels/' + id);
   }
   generatePreview(objectId, audio, details) {
-    console.log(audio);
-    return this.http.post('http://localhost:3000/generate', {
+    return this.http.post(environment.SERVER + '/generate', {
       id: objectId,
       audio,
       details,
