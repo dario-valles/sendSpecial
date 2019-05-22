@@ -4,9 +4,9 @@ Send a special gift to whom you want.
 SendSpecial let's you create a marker with custom 3d model, custom text, and custom audio.
 Once created just point with your mobile to the Hiro marker and see the magic.
 
-![da](readme-files/da.png)
+![da](readme-files/desktop_preview.png)
 
-![](readme-files/iphonexspacegrey_portraitx300.png)
+![](readme-files/phone_preview.png)
 
 **Live demo at**: [sendspecial.surge.sh](sendspecial.surge.sh)
 
