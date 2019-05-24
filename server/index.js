@@ -10,13 +10,20 @@ const parser = require('koa-body');
 const app = (module.exports = new koa());
 const router = require('./routes.js');
 const errorHandler = require('./middlewares/errror-handler');
+const session = require('koa-session');
+const passport = require('koa-passport');
 
 const port = process.env.PORT || 3000;
 
+app.keys = [process.env.SECRET];
+
 app
   .use(cors())
-  .use(parser({multipart: true}))
+  .use(session({}, app))
+  .use(parser({ multipart: true }))
   .use(errorHandler())
+  .use(passport.initialize())
+  .use(passport.session())
   .use(router.routes())
   .use(router.allowedMethods())
   .use(compress());
